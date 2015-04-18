@@ -316,6 +316,19 @@ namespace pythonic {
                     }
                     return os << ')';
                 }
+                template<class E> void init_shape(array<long, value>& res, E const& e, utils::int_<1>) const {
+                  res[value - 1] = e.size();
+                }
+                template<class E, size_t L> void init_shape(array<long, value>& res, E const& e, utils::int_<L>) const {
+                  res[value - L] = e.size();
+                  init_shape(res, e[0], utils::int_<L-1>{});
+                }
+
+                array<long, value> shape() const {
+                    array<long, value> res;
+                    init_shape(res, *this, utils::int_<value>{});
+                    return res;
+                }
             };
 
         namespace details {

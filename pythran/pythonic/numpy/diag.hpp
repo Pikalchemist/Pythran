@@ -11,14 +11,14 @@ namespace pythonic {
     namespace numpy {
         template<class T>
             types::ndarray<T,1> diag(types::ndarray<T,2> const &a, long k=0) {
-                T* buffer = (T*)malloc(std::max(a.shape[0], a.shape[1]) * sizeof(T));
+                T* buffer = (T*)malloc(std::max(a.shape()[0], a.shape()[1]) * sizeof(T));
                 long shape[1] = {0};
                 auto iter = buffer;
                 if(k>=0)
-                    for(int i=0, j = k; i< a.shape[0] and j < a.shape[1]; ++i, ++j, ++shape[0])
+                    for(int i=0, j = k; i< a.shape()[0] and j < a.shape()[1]; ++i, ++j, ++shape[0])
                         *iter++ = a[i][j];
                 else {
-                    for(int i=-k, j = 0; i< a.shape[0] and j < a.shape[1]; ++i, ++j, ++shape[0])
+                    for(int i=-k, j = 0; i< a.shape()[0] and j < a.shape()[1]; ++i, ++j, ++shape[0])
                         *iter++ = a[i][j];
                 }
                 return types::ndarray<T,1>(buffer, shape);

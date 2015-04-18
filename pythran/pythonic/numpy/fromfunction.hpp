@@ -17,7 +17,7 @@ namespace pythonic {
                 types::ndarray<typename std::remove_cv<typename std::remove_reference<typename std::result_of<F(dtype)>::type>::type>::type, 1>
                     operator()(F&& f, types::array<long,1> const& shape, dtype d = dtype()) {
                         types::ndarray<typename std::remove_cv<typename std::remove_reference<typename std::result_of<F(dtype)>::type>::type>::type, 1> out(shape, __builtin__::None);
-                        long n = out.shape[0];
+                        long n = out.shape()[0];
 #ifdef _OPENMP
                         if(std::is_same<purity_tag, purity::pure_tag>::value
                            and n >= PYTHRAN_OPENMP_MIN_ITERATION_COUNT)
@@ -37,8 +37,8 @@ namespace pythonic {
                 types::ndarray<typename std::remove_cv<typename std::remove_reference<typename std::result_of<F(dtype, dtype)>::type>::type>::type, 2>
                     operator()(F&& f, types::array<long,2> const& shape, dtype d = dtype()) {
                         types::ndarray<typename std::remove_cv<typename std::remove_reference<typename std::result_of<F(dtype, dtype)>::type>::type>::type, 2> out(shape, __builtin__::None);
-                        long n = out.shape[0];
-                        long m = out.shape[1];
+                        long n = out.shape()[0];
+                        long m = out.shape()[1];
 #ifdef _OPENMP
                         if(std::is_same<purity_tag, purity::pure_tag>::value
                            and (m * n) >= PYTHRAN_OPENMP_MIN_ITERATION_COUNT)
